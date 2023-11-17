@@ -41,5 +41,7 @@ void loop() {
       digitalWrite(LED1, LOW); 
       digitalWrite(LED2, LOW); 
     }
+    Serial.print('\n');  //mySerial
+    delay(500);
   }
 }
