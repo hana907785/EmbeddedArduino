@@ -1,53 +1,62 @@
 #include <SoftwareSerial.h>
 
 SoftwareSerial mySerial(10, 11);
-byte command;
-const int pinTrig1 = 2;
-const int pinEcho1 = 3; 
 
-const int pinTrig2 = 6;
-const int pinEcho2 = 7; 
-long duration1, distance1, duration2, distance2;
+int pinTrig[2] = {2, 6};
+int pinEcho[2] = {3, 7};
+char command;
+int distance[2] = {0,0};
+int TData;
 
-
-
-void setup() {
-  mySerial.begin(9600); // 시리얼 통신 시작
-  Serial.begin(9600); 
-  
-  pinMode(pinTrig1, OUTPUT);
-  pinMode(pinEcho1, INPUT);
-  
-  pinMode(pinTrig2, OUTPUT);
-  pinMode(pinEcho2, INPUT);
+void setup()
+{
+  mySerial.begin(9600);
+  Serial.begin(9600);
+  for(int i = 0;i<2;i++)
+    pinMode(pinTrig[i], OUTPUT);
+  for(int i = 0;i<2;i++)
+    pinMode(pinEcho[i], INPUT);
 }
 
-oid loop() {
-  if (mySerial.available()) {
-    command = mySerial.read();
 
-    if (command == 'S') { // 'S'를 받으면 초음파 센서 값을 측정하고 첫 번째 아두이노로 전송
-      // 초음파센서1 측정
-      digitalWrite(pinTrig1, LOW); delayMicroseconds(2);
-      digitalWrite(pinTrig1, HIGH);delayMicroseconds(10);
-      digitalWrite(pinTrig1, LOW);
+void loop() {
+  if (mySerial.available()){  //mySerial
+    command = mySerial.read();  //mySerial
+    while (command =='Start'){ //터치스크린 대신 일단 시리얼 모니터
+      for (int i = 0; i<2;i++){ //초음파 센서 측정
+        digitalWrite(pinTrig[i], LOW); delayMicroseconds(2);
+        digitalWrite(pinTrig[i], HIGH); delayMicroseconds(10);
+        digitalWrite(pinTrig[i], LOW);
 
-      duration1 = pulseIn(pinEcho1, HIGH);
-      distance1 = duration1 / 58.82;
+        TData = pulseIn(pinEcho[i], HIGH);
 
-      // 초음파센서2 측정
-      digitalWrite(pinTrig2, LOW); delayMicroseconds(2);
-      digitalWrite(pinTrig2, HIGH); delayMicroseconds(10);
-      digitalWrite(pinTrig2, LOW);
+        distance[i] = TData/58.82;
 
-      duration2 = pulseIn(pinEcho2, HIGH);
-      distance2 = duration2 / 58.82;
+        if ( i == 0 ) { //첫번째 초음파센서
+          if (distance[0] < 20) {
+            mySerial.write('n');
 
-      // 결과를 첫 번째 아두이노로 전송
-      mySerial.print(distance1);
-      mySerial.print(',');
-      mySerial.println(distance2);
-    }
-  }
-  delay(500);
+          }
+          else if (distance[0] >= 20){
+            mySerial.write('y');
+          }
+        }
+
+        else if ( i == 1 ) { //두번째 초음파센서
+          if (L[1] < 20) {
+            mySerial.write('N');
+          }
+          else if (distance[1] >= 20){
+            mySerial.write('Y');
+          }
+        }
+     }
+     Serial.print('\n');
+
+     if (command != 'End'){
+      break;
+     }
+     delay(1000);
+     }
+   }
 }
