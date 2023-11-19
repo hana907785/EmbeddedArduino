@@ -34,10 +34,10 @@ void reception(char r) {
 void loop() {
   if(Serial.available()){
     command = Serial.read();
-    mySerial.write(c);
+    mySerial.write(command);
   }
   if(mySerial.available()){
     readCom = mySerial.read();
-    reception(r);
+    reception(readCom);
    }
 }
