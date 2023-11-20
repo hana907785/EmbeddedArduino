@@ -132,16 +132,3 @@ TSPoint waitOneTouch() {
 
   return p;
 }
-
-void drawBorder () {
-
-  // Draw a border
-
-  uint16_t width = tft.width() - 1;
-  uint16_t height = tft.height() - 1;
-  uint8_t border = 10;
-
-  tft.fillScreen(RED);
-  tft.fillRect(border, border, (width - border * 2), (height - border * 2), WHITE);
-
-}
