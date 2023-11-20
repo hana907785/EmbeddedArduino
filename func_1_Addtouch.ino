@@ -48,7 +48,7 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, SENSIBILITY);
 SoftwareSerial mySerial(10, 11);
 
 int led[2] = {12, 13};
-char c;
+char command;
 char r;
 
 // 좌표
@@ -167,21 +167,21 @@ void loop() {
     if (p.y > 40) {
        if (p.y < 140) {
           bustouch();
-          c = 'g';
+          command = 'g';
        }
     }
     if (p.y < 100 && p.y > 20) {
        if (p.x < 300 && p.x > 250) {
           busmain();
-          c = 'e';
+          command = 'e';
        }
     }
   }
 
   // led
-  if ( c == 'g' )
+  if ( command == 'g' )
     mySerial.write(c);
-  else if (c == 'e'){
+  else if (command == 'e'){
     digitalWrite(led[0], LOW);
     digitalWrite(led[1], LOW);
   }
