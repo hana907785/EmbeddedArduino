@@ -22,14 +22,18 @@ void setup() {
   mySerial.begin(9600);
 }
 
+int count = 0;
+
 void loop() {
   if (mySerial.available()) {
       c = mySerial.read();
       Serial.print(c);
+      if (c != 0)
+        count++;
     }
     
-  if (c == 1) {
-   
+  if (c != 0) {
+   if (count == 1) {
       for (int i = 0; i < 2; ++i) {  // 3번 반복
         digitalWrite(ledPin, HIGH);
         digitalWrite(buzzerPin, HIGH); 
@@ -43,7 +47,6 @@ void loop() {
 
         delay(duration);
       }
-      c = 0;
-    
+   }  
   }
 }
