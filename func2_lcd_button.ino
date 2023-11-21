@@ -10,7 +10,7 @@ const int buttonPinK7 = 5;  // K7 버튼 핀 번호
 int digit1 = 0; // 첫 번째 자리의 숫자
 int digit2 = 0; // 두 번째 자리의 숫자
 bool oddPress = true; // 홀수 번째 버튼 눌림 여부를 나타내는 변수
-int spaces[] = {11, 12, 13, 21, 22, 23};
+int spaces[] = {11, 12, 13, 21, 22};
 
 volatile byte command = 0;
 volatile byte data = 0;
