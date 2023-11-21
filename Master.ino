@@ -6,7 +6,7 @@ const int S2 = 9;
 const int ledPins[] = {2, 3, 4, 5, 6};
 
 //정류장 인덱스
-int spaces[] = {11, 12, 13, 21, 22, 23};
+int spaces[] = {11, 12, 13, 21, 22};
 
 
 byte s;
@@ -88,7 +88,7 @@ void Arrive() {
   }
 }
 void moveStop() {
-    if (currentBusIndex == 5) {
+    if (currentBusIndex == 4) {
         while (currentBusIndex > 0) {
             currentBusIndex--;
         }
@@ -108,7 +108,7 @@ bool Departure() {
 
 //모든 LED끔
 void turnOffAllLEDs() {
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 5; i++) {
     digitalWrite(ledPins[i], LOW);
   }
 }
