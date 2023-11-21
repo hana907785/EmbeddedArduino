@@ -35,7 +35,7 @@ byte transferAndWait(const byte what) {
   return a;
 }
 
-int old = 99 // 걍 쓰레기값
+int old = 99; // 걍 쓰레기값
 
 void loop() {
   digitalWrite(S1, LOW);
@@ -88,7 +88,7 @@ void Arrive() {
   }
 }
 void moveStop() {
-    if (currentBusIndex == 4) {
+    if (currentBusIndex == 5) {
         while (currentBusIndex > 0) {
             currentBusIndex--;
         }
@@ -108,7 +108,7 @@ bool Departure() {
 
 //모든 LED끔
 void turnOffAllLEDs() {
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 6; i++) {
     digitalWrite(ledPins[i], LOW);
   }
 }
