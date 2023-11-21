@@ -51,15 +51,13 @@ void loop() {
    *  이 문제를 해결하기 위해 전에 받았던 값을 저장하고 다음에 받은 값을 비교하여 무한으로 신호를 보내는 문제를 해걀하려고 함
    *  통신 spi로 바꿔도 될 것 같음 근데 아직 거기까진 생각을 안 함
    */
-  if (old != s ) {
+  
+  if (old != arrive ) {
     currentBusIndex = 0;
     mySerial.write(arrive);
-    /*digitalWrite(S2, LOW);
-    SPI.transfer(arrive);
-    digitalWrite(S2, HIGH);*/
   }
-  old = s;
-
+  
+  old = arrive;
   
   if (Departure()) {
     // 다음으로 이동
