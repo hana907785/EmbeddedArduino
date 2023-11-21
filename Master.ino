@@ -53,7 +53,6 @@ void loop() {
    */
   
   if (old != arrive ) {
-    currentBusIndex = 0;
     mySerial.write(arrive);
   }
   
