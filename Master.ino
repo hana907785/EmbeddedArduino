@@ -6,7 +6,7 @@ const int S2 = 9;
 const int ledPins[] = {2, 3, 4, 5, 6};
 
 //정류장 인덱스
-int spaces[] = {11, 12, 21, 22, 31};
+int spaces[] = {11, 12, 13, 21, 22, 23};
 
 
 byte s;
