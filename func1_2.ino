@@ -22,7 +22,7 @@ void setup()
 void loop() {
   if (mySerial.available()){  //mySerial
     command = mySerial.read();  //mySerial
-    while (command =='g'){ //터치스크린 대신 일단 시리얼 모니터
+    if (command =='g'){ //터치스크린 대신 일단 시리얼 모니터
       for (int i = 0; i<2;i++){ //초음파 센서 측정
         digitalWrite(pinTrig[i], LOW); delayMicroseconds(2);
         digitalWrite(pinTrig[i], HIGH); delayMicroseconds(10);
@@ -31,31 +31,26 @@ void loop() {
         TData = pulseIn(pinEcho[i], HIGH);
 
         distance[i] = TData/58.82;
+        Serial.print(distance[i]);
+        Serial.print('\t');
 
-        if ( i == 0 ) { //첫번째 초음파센서
-          if (distance[0] < 20) {
+        if ( i <= 2 ) { //두번째 초음파센서
+          if (distance[0] < 20 && distance[1] < 20) {
             mySerial.write('n');
-
           }
-          else if (distance[0] >= 20){
+          else if (distance[0] >= 20 && distance[1] < 20) {
             mySerial.write('y');
           }
-        }
-
-        else if ( i == 1 ) { //두번째 초음파센서
-          if (L[1] < 20) {
+          else if (distance[0] < 20 && distance[1] >= 20) {
             mySerial.write('N');
           }
-          else if (distance[1] >= 20){
+          else if (distance[0] >= 20 && distance[1] >= 20) {
             mySerial.write('Y');
           }
         }
      }
-     Serial.print('\n');
 
-     if (command != 'e'){
-      break;
-     }
+
      delay(1000);
      }
    }
