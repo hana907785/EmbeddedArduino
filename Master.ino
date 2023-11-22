@@ -58,14 +58,19 @@ void loop() {
   delay(1000);
 }
 void Arrive() {
+  if (s != 0) {
   if (s - currentBusIndex == 1) {
     arrive = 1;
   }
   else if(s - currentBusIndex != 1) {
     arrive = 0;
   } 
-  if (s == 0 && currentBusIndex == 4){
-    arrive = 1;
+  }
+  else if (s == 0){
+    if (currentBusIndex == 4)
+      arrive = 1;
+    else 
+      arrive = 0;
   }
 }
 void moveStop() {
