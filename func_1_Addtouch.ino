@@ -114,14 +114,18 @@ void susin(char r) {
   switch (r){
     case 'n':
     digitalWrite(led[0], LOW);
+    digitalWrite(led[1], LOW);
     break;
     case 'y':
     digitalWrite(led[0], HIGH);
-    break;
-    case 'N':
     digitalWrite(led[1], LOW);
     break;
+    case 'N':
+    digitalWrite(led[0], LOW);
+    digitalWrite(led[1], HIGH);
+    break;
     case 'Y':
+    digitalWrite(led[0], HIGH);
     digitalWrite(led[1], HIGH);
     break;
   }
@@ -145,7 +149,7 @@ void setup() {
   mySerial.begin(9600);
 }
 
-
+int count = 0;
 
 void loop() {
   // tft lcd
@@ -156,31 +160,45 @@ void loop() {
   pinMode(XM, OUTPUT);
 
   if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
-    //좌표확인용 이건 나중에 할 거임
-    Serial.print("X = "); Serial.print(p.x);
-    Serial.print("\tY = "); Serial.print(p.y);
-    Serial.print("\tPressure = "); Serial.println(p.z);
 
     p.x = map(p.x, TS_MINX, TS_MAXX, 0, tft.width());
     p.y = map(p.y, TS_MINY, TS_MAXY, 0, tft.height());;
 
-    if (p.y > 40) {
+  
+    if ( count == 0){
+      if (p.y > 40) {
        if (p.y < 140) {
-          bustouch();
-          c = 'g';
-          mySerial.write(c);
+            tft.fillRect(0, 40, 400, 100, GREEN);
+            tft.setTextSize(3);
+            tft.setCursor(20, 80);
+            tft.setTextColor(BLACK);
+            tft.print("Bus : Number 97");
+            c = 'g';
+            mySerial.write(c);
+            count++;
        }
     }
-    if (p.y < 100 && p.y > 20) {
-       if (p.x < 300 && p.x > 250) {
-          busmain();
-          digitalWrite(led[0], LOW);
-          digitalWrite(led[1], LOW);
+   }
+
+   else if ( count == 1){
+      if (p.y > 40) {
+       if (p.y < 140) {
+            tft.fillRect(0, 40, 400, 100, WHITE);
+            tft.setTextSize(3);
+            tft.setCursor(20, 80);
+            tft.setTextColor(BLACK);
+            tft.print("Bus : Number 97");
+            c = 'e';
+            mySerial.write(c);
+            digitalWrite(led[0], LOW);
+            digitalWrite(led[1], LOW);
+            count--;
        }
     }
+   }
+    
   }
 
-    
   if(mySerial.available()){
     r = mySerial.read();
     susin(r);
