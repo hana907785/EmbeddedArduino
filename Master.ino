@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 SoftwareSerial mySerial(8, 9);
 #include <SPI.h>
-const int S1 = 8;
+const int S1 = 10;
 const int S2 = 9;
 const int ledPins[] = {2, 3, 4, 5, 6};
 
