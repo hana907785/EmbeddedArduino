@@ -31,6 +31,8 @@ void loop() {
       if (c != 0)
         count++;
     }
+    else 
+      count = 0;
     
   if (c != 0) {
    if (count == 1) {
