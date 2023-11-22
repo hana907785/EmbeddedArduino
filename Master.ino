@@ -63,6 +63,9 @@ void Arrive() {
   }
   else if(s - currentBusIndex != 1) {
     arrive = 0;
+  } 
+  else if (s == 0 && currentBusIndex == 4){
+    arrive = 1;
   }
 }
 void moveStop() {
