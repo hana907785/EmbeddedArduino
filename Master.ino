@@ -85,7 +85,7 @@ void moveStop() {
 
 //"출발"입력 감지
 bool Departure() {
-  if (Serial.available() > 0) {
+  if (Serial.available()) {
     String message = Serial.readStringUntil('\n');
     return message.equals("ㅁ");
   }
