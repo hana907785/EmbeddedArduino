@@ -110,7 +110,7 @@ void busmain() {
 }
 
 //led
-void susin(char r) {
+void reception(char r) {
   switch (r){
     case 'n':
     digitalWrite(led[0], LOW);
@@ -139,7 +139,7 @@ void setup() {
   uint16_t identifier = tft.readID();
   tft.begin(0x9341);
   tft.setRotation(1); //가로모드설정
-  busmain(); //이거 다른 곳에도 써야돼서 함수로 만들었음
+  busmain(); 
   waitOneTouch();
   pinMode(9, OUTPUT);
 
@@ -201,7 +201,7 @@ void loop() {
 
   if(mySerial.available()){
     r = mySerial.read();
-    susin(r);
+    reception(r);
   }
   
 }
