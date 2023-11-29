@@ -22,7 +22,7 @@ void setup()
 void loop() {
   if (mySerial.available()){  //mySerial
     command = mySerial.read();  //mySerial
-    if (command =='g'){ //터치스크린 대신 일단 시리얼 모니터
+    if (command =='g'){ 
       for (int i = 0; i<2;i++){ //초음파 센서 측정
         digitalWrite(pinTrig[i], LOW); delayMicroseconds(2);
         digitalWrite(pinTrig[i], HIGH); delayMicroseconds(10);
